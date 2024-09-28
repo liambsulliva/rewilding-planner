@@ -6,11 +6,9 @@
 
 <main>
   <h1 class="font-bold">Rewilding Simulation</h1>
-  
   <div class="flex flex-col items-center p-6">
     <Grid />
   </div>
-
   <Footer />
 </main>
 
