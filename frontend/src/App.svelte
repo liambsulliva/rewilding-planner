@@ -1,27 +1,17 @@
 <script lang="ts">
   import "./app.css";
-  import Counter from './lib/Counter.svelte'
   import Grid from './lib/Grid.svelte'
+  import Footer from './lib/Footer.svelte';
 </script>
 
 <main>
   <h1 class="font-bold">Rewilding Simulation</h1>
   
-  <div class="card">
+  <div class="flex flex-col items-center justify-end p-6">
     <Grid />
   </div>
 
-  <div class="card">
-    <Counter></Counter>
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <Footer />
 </main>
 
 

@@ -1,8 +1,8 @@
 <script lang="ts">
     export let name: IconName = 'heart';
-    export let rows = 3;
-    export let cols = 3;
-    export let cellSize = 100;
+    export const rows = 5;
+    export const cols = 5;
+    export const cellSize = 100;
     type IconName = 'heart' | 'star' | 'circle';
 
     interface svgIcons {
