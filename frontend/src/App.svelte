@@ -7,7 +7,7 @@
 <main>
   <h1 class="font-bold">Rewilding Simulation</h1>
   
-  <div class="flex flex-col items-center justify-end p-6">
+  <div class="flex flex-col items-center p-6">
     <Grid />
   </div>
 
@@ -16,6 +16,9 @@
 
 
 <style>
+  :root {
+    overflow: hidden;
+  }
   .logo {
     height: 6em;
     padding: 1.5em;
