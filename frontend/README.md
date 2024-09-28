@@ -1,109 +1,47 @@
-# Svelte Kit + TypeScript + Tailwind CSS starter template
+# Svelte + TS + Vite
 
-Everything you need to build a full-featured Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This template should help get you started developing with Svelte and TypeScript in Vite.
 
-## What's inside
+## Recommended IDE Setup
 
-This starter template comes with:
+[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
 
-### Bundler
+## Need an official Svelte framework?
 
-- [Vite](https://vitejs.dev): Next Generation Frontend Tooling.
+Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
 
-### JavaScript frameworks
+## Technical considerations
 
-- [Svelte](https://svelte.dev): Cybernetically enhanced web apps.
-- [Svelte Kit](https://kit.svelte.dev): Web development, streamlined.
+**Why use this over SvelteKit?**
 
-### Components
+- It brings its own routing solution which might not be preferable for some users.
+- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
 
-- [svelte-headlessui](https://captaincodeman.github.io/svelte-headlessui): Unstyled, fully accessible UI components for Svelte.
-- [svelte-transition](https://github.com/captaincodeman/svelte-transition): Svelte Transition Component.
-- [svelte-french-toast](https://svelte-french-toast.com/): Buttery smooth toast notifications.
-- [svelte-themes](https://github.com/beynar/svelte-themes/): Perfect SvelteKit dark mode in 2 lines of code. Support System preference and any other theme with no flashing.
-- [@poppanator/sveltekit-svg](https://github.com/poppa/sveltekit-svg): SvelteKit plugin that makes it possible to import SVG files as Svelte components, inline SVG code or urls.
+This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
 
-### Type checking
+Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
 
-- [TypeScript](https://www.typescriptlang.org): JavaScript with syntax for types.
+**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
 
-### Data validation
+Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
 
-- [zod](https://zod.dev/): TypeScript-first schema validation with static type inference.
-- [zod-form-data](https://www.npmjs.com/package/zod-form-data): Validation helpers for zod specifically for parsing FormData or URLSearchParams.
+**Why include `.vscode/extensions.json`?**
 
-### CSS frameworks
+Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
 
-- [Tailwind CSS](https://tailwindcss.com): Rapidly build modern websites without ever leaving your HTML.
-- [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms): A plugin that provides a basic reset for form styles that makes form elements easy to override with utilities.
-- Sensible defaults in the `tailwind.config.js`.
+**Why enable `allowJs` in the TS template?**
 
-### Formatting & Linting
+While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
 
-- [Prettier](https://prettier.io): An opinionated code formatter.
-- [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss): Prettier plugin for Tailwind CSS that automatically sorts classes based on the official recommended class order.
-- [Eslint](https://eslint.org): Find and fix problems in your JavaScript code.
+**Why is HMR not preserving my local component state?**
 
-### i18n
+HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
 
-- [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n#get-started): A fully type-safe and lightweight internationalization library for all your TypeScript and JavaScript projects.
+If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
 
-### Testing
-
-- [Playwright](https://playwright.dev): Fast and reliable end-to-end testing for modern web apps.
-- [Vitest](https://vitest.dev/): Blazing Fast Unit Test Framework.
-
-### Fonts
-
-- [Inter variable](https://rsms.me/inter/): A typeface carefully crafted & designed for computer screens.
-- [Optimizations](https://leerob.io/blog/fonts) to minimize layout shifts.
-
-### Utils
-
-- [svelte-local-storage-store](https://github.com/joshnuss/svelte-local-storage-store): A Svelte store that persists to localeStorage.
-- [date-fns](https://date-fns.org/): Modern JavaScript date utility library.
-- [date-fns-tz](https://github.com/marnusw/date-fns-tz): Complementary library for date-fns v2 adding IANA time zone support.
-- [@neoconfetti/svelte](https://github.com/puruvj/neoconfetti): Confetti in Svelte.
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```ts
+// store.ts
+// An extremely simple external store
+import { writable } from 'svelte/store'
+export default writable(0)
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Credits
-
-Best practices for font optimization by Lee Robinson's [Web Fonts in 2021](https://leerob.io/blog/fonts) blog post.
-
-i18n logic copied from [typesafe-i18n-demo-sveltekit](https://github.com/ivanhofer/typesafe-i18n-demo-sveltekit).
-
-svelte-themes port of next-theme for SvelteKit by [beynar/svelte-themes](https://github.com/beynar/svelte-themes/).
