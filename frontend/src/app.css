@@ -63,7 +63,6 @@ button {
 }
 button:hover {
 	border-color: #fff;
-	color: #fff;
 	box-shadow: 0 5px 15px rgba(145, 92, 182, 0.4);
 }
 button:focus,

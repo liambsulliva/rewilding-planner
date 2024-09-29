@@ -164,8 +164,8 @@ function cutDownTree(row: number, col: number) {
   .grid-container {
     width: 50rem;
     height: 32rem;
-    max-width: calc(var(--cols) * (var(--cell-size) + 1px) - 1px);
-    max-height: calc(var(--rows) * (var(--cell-size) + 1px) - 1px);
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
     overflow: hidden; /* Ensure the grid does not overflow outside its bounds */
     position: relative;
     cursor: grab;
