@@ -1,8 +1,11 @@
+<script lang="ts">
+  import Submit from './Submit.svelte';
+</script>
 <div class="stats-box flex flex-col justify-start items-start gap-3">
     <p>Biodiversity: <strong>0.472</strong></p>
     <p>Carbon: <strong>32.4ppm</strong></p>
     <div class="my-2">
-        <button class="rounded-xl cursor-pointer">Submit Forest</button>
+        <Submit />
     </div>
 </div>
 <style>

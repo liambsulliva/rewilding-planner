@@ -131,8 +131,8 @@ function cutDownTree(row: number, col: number) {
   }
 
   onMount(() => {
-  updateVisibleCells();
-});
+    updateVisibleCells();
+  });
 
 </script>
 
