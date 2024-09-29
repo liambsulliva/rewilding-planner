@@ -1,8 +1,8 @@
 <script lang="ts">
-import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
 
-  export const rows = 524;
-  export const cols = 537;
+  export const rows = 640;
+  export const cols = 640;
   export const cellSize = 100;
 
   let zoomLevel = 1;
@@ -11,6 +11,7 @@ import { onMount } from 'svelte';
   let isPanning = false;
   let startX = 0;
   let startY = 0;
+  const bufferCells = 10;
   
   const viewportWidth = 50 * 16; 
   const viewportHeight = 32 * 16;
@@ -36,6 +37,12 @@ import { onMount } from 'svelte';
 
   // Generates grid data
   let gridContainer: HTMLDivElement;
+
+  // Generate memoized grid data
+  const gridData: string[][] = Array(rows).fill(null).map(() => 
+    Array(cols).fill(null).map(() => randomizeSVG())
+  );
+
   let visibleCells: { row: number, col: number, svg: string }[] = [];
 
   // Zoom detection logic
@@ -48,21 +55,21 @@ import { onMount } from 'svelte';
   });
 
   function updateVisibleCells() {
-  const cellWidth = cellSize * zoomLevel;
-  const cellHeight = cellSize * zoomLevel;
+    const cellWidth = cellSize * zoomLevel;
+    const cellHeight = cellSize * zoomLevel;
 
-  const startCol = Math.max(0, Math.floor(-translateX / cellWidth));
-  const endCol = Math.min(cols - 1, Math.ceil((viewportWidth - translateX) / cellWidth));
-  const startRow = Math.max(0, Math.floor(-translateY / cellHeight));
-  const endRow = Math.min(rows - 1, Math.ceil((viewportHeight - translateY) / cellHeight));
+    const startCol = Math.max(0, Math.floor(-translateX / cellWidth) - bufferCells);
+    const endCol = Math.min(cols - 1, Math.ceil((viewportWidth - translateX) / cellWidth));
+    const startRow = Math.max(0, Math.floor(-translateY / cellHeight) - bufferCells);
+    const endRow = Math.min(rows - 1, Math.ceil((viewportHeight - translateY) / cellHeight));
 
-  visibleCells = [];
-  for (let row = startRow; row <= endRow; row++) {
-    for (let col = startCol; col <= endCol; col++) {
-      visibleCells.push({ row, col, svg: randomizeSVG() });
+    visibleCells = [];
+    for (let row = startRow; row <= endRow; row++) {
+      for (let col = startCol; col <= endCol; col++) {
+        visibleCells.push({ row, col, svg: gridData[row][col] });
+      }
     }
   }
-}
 
   // Mouse down event for panning
   function handleMouseDown(event: MouseEvent) {
@@ -73,11 +80,11 @@ import { onMount } from 'svelte';
 
   // Mouse move event for panning
   function handleMouseMove(event: MouseEvent) {
-  if (!isPanning) return;
-  translateX = event.clientX - startX;
-  translateY = event.clientY - startY;
-  updateVisibleCells();
-}
+    if (!isPanning) return;
+    translateX = event.clientX - startX;
+    translateY = event.clientY - startY;
+    updateVisibleCells();
+  }
 
   // Mouse up event to stop panning
   function handleMouseUp() {
