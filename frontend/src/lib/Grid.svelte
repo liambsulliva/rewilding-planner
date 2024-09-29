@@ -217,6 +217,10 @@ function cutDownTree(row: number, col: number) {
   .cell {
     background-color: #151515;
   }
+
+  .cell:hover {
+    background-color: #151515;
+  }
 }
 
   .cell :global(svg) {
