@@ -4,12 +4,16 @@
   import '@fontsource/geist-mono/700.css';
   import Grid from './lib/Grid.svelte'
   import Footer from './lib/Footer.svelte';
+  import Stats from './lib/Stats.svelte';
 </script>
 
 <main>
   <h1 class="header font-bold">Rewilding Simulation</h1>
-  <div class="flex flex-col items-center p-6">
+  <div class="relative flex flex-col items-center p-6">
     <Grid />
+    <div style="max-width: calc(100vw - 2rem);" class="absolute top-6 right-20">
+      <Stats />
+    </div>
   </div>
   <Footer />
 </main>

@@ -13,7 +13,7 @@
   let startY = 0;
   const bufferCells = 10;
   
-  const viewportWidth = 50 * 16; 
+  const viewportWidth = 50 * 16;
   const viewportHeight = 32 * 16;
 
   const svgIcons = {
@@ -54,6 +54,39 @@
     }
   });
 
+  function areAdjacentCellsNotTrees(row: number, col: number): boolean {
+  const adjacentOffsets = [-1, 0, 1];
+  for (let dx of adjacentOffsets) {
+    for (let dy of adjacentOffsets) {
+      const adjRow = row + dy;
+      const adjCol = col + dx;
+      if (adjRow >= 0 && adjRow < rows && adjCol >= 0 && adjCol < cols) {
+        if (gridData[adjRow][adjCol] === 'tree') {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+function cutDownTree(row: number, col: number) {
+  if (gridData[row][col] === 'tree') {
+    gridData[row][col] = ''; // Remove the tree
+
+    // Check if adjacent cells are empty
+    if (areAdjacentCellsNotTrees(row, col)) {
+      // 10% chance to spawn an animal
+      if (Math.random() < 0.33) {
+        const animals = ['animal1', 'animal2', 'animal3'];
+        const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
+        gridData[row][col] = randomAnimal; // Place the animal
+      }
+    }
+    updateVisibleCells(); // Refresh the visible grid
+  }
+}
+
   function updateVisibleCells() {
     const cellWidth = cellSize * zoomLevel;
     const cellHeight = cellSize * zoomLevel;
@@ -70,6 +103,12 @@
       }
     }
   }
+
+  function handleMouseClick(row: number, col: number) {
+  // Prevents panning behavior when clicking
+  isPanning = false;
+  cutDownTree(row, col);
+}
 
   // Mouse down event for panning
   function handleMouseDown(event: MouseEvent) {
@@ -105,13 +144,18 @@
   on:mousemove={handleMouseMove} 
   on:mouseup={handleMouseUp} 
   on:mouseleave={handleMouseUp}>
+
   <div class="grid" style="--rows: {rows}; --cols: {cols}; --cell-size: {cellSize}px; --zoom: {zoomLevel}; transform: translate({translateX}px, {translateY}px) scale({zoomLevel});">
     {#each visibleCells as { row, col, svg }}
-      <div class="cell" style="grid-row: {row + 1}; grid-column: {col + 1};">
+      <button
+        class="cell {svg}" 
+        style="grid-row: {row + 1}; grid-column: {col + 1};"
+        on:click={() => handleMouseClick(row, col)} 
+      >
         {#if svg !== ''}
           {@html svgIcons[svg]}
         {/if}
-      </div>
+  </button>
     {/each}
   </div>
 </div>
@@ -120,6 +164,8 @@
   .grid-container {
     width: 50rem;
     height: 32rem;
+    max-width: calc(var(--cols) * (var(--cell-size) + 1px) - 1px);
+    max-height: calc(var(--rows) * (var(--cell-size) + 1px) - 1px);
     overflow: hidden; /* Ensure the grid does not overflow outside its bounds */
     position: relative;
     cursor: grab;
