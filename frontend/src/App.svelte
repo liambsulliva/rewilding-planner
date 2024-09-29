@@ -26,13 +26,15 @@
   }
   .stats-container {
     position: absolute;
-    top: 1.5rem;
-    right: 5rem;
+    display: flex;
+    justify-content: end;
+    width: 1475px;
     max-width: calc(100vw - 2rem);
   }
   @media (max-width: 1450px) {
     .stats-container {
       position: relative;
+      justify-content: center;
     }
   }
 </style>

@@ -12,10 +12,11 @@
   .stats-box {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: flex-start;
+    text-align: left;
     gap: 0.5rem;
-    padding: 1rem;
+    padding: 1rem 3rem;
+    margin: 0 3rem;
     border-radius: 8px;
     z-index: 10;
   }
@@ -29,10 +30,7 @@
     .stats-box {
       flex-direction: row;
       gap: 1rem;
-      justify-content: center;
       align-items: center;
-      margin: 0 0 1rem 4rem;
-      padding: 0 0 1rem 4rem;
     }
   }
 </style>
