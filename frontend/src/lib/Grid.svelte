@@ -209,6 +209,10 @@ function cutDownTree(row: number, col: number) {
   padding: 10px;
 }
 
+.cell:hover {
+  background-color: #fafafa;
+}
+
 @media (prefers-color-scheme: dark) {
   .cell {
     background-color: #151515;
