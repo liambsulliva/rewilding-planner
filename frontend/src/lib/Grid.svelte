@@ -46,12 +46,33 @@
   let visibleCells: { row: number, col: number, svg: string }[] = [];
 
   // Zoom detection logic
+  // Reference to the component
+
+  let componentElement: HTMLElement | null = null;
+
+  onMount(() => {
+    componentElement = document.querySelector('.grid-container');
+  });
+
   window.addEventListener('wheel', (event) => {
-    if (event.ctrlKey) {
+    if (!componentElement) return;
+    
+    const rect = componentElement.getBoundingClientRect();
+
+    // Get mouse position
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    // Check if the mouse is within the bounds of the component
+    const inBounds = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+
+    if (inBounds) {
+      // Perform zooming logic only if the mouse is within the component's bounds
       zoomLevel = Math.max(0.5, Math.min(2, zoomLevel - event.deltaY * 0.001));
-      event.preventDefault();
       updateVisibleCells();
     }
+
+    event.preventDefault();
   });
 
   function areAdjacentCellsNotTrees(row: number, col: number): boolean {
