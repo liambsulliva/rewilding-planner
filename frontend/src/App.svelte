@@ -1,11 +1,13 @@
 <script lang="ts">
   import "./app.css";
+  import '@fontsource/geist-sans/700.css';
+  import '@fontsource/geist-mono/700.css';
   import Grid from './lib/Grid.svelte'
   import Footer from './lib/Footer.svelte';
 </script>
 
 <main>
-  <h1 class="font-bold">Rewilding Simulation</h1>
+  <h1 class="header font-bold">Rewilding Simulation</h1>
   <div class="flex flex-col items-center p-6">
     <Grid />
   </div>
@@ -16,6 +18,9 @@
 <style>
   :root {
     overflow: hidden;
+  }
+  .header {
+    font-family: 'Geist Sans', Helvetica, sans-serif;
   }
   .logo {
     height: 6em;

@@ -93,7 +93,7 @@ import { onMount } from 'svelte';
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div 
   bind:this={gridContainer}
-  class="grid-container border border-gray-200 rounded-lg" 
+  class="grid-container border border-neutral-200 dark:border-neutral-500 rounded-lg" 
   on:mousedown={handleMouseDown}
   on:mousemove={handleMouseMove} 
   on:mouseup={handleMouseUp} 
@@ -139,6 +139,12 @@ import { onMount } from 'svelte';
   justify-content: center;
   align-items: center;
   padding: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cell {
+    background-color: #151515;
+  }
 }
 
   .cell :global(svg) {
