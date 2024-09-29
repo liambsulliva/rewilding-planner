@@ -17,6 +17,11 @@
       left: 0;
       width: 100%;
     }
+    @media (prefers-color-scheme: light) {
+      .footer {
+        background-color: #fefefe;
+      }
+    }
     .content {
       font-family: 'Geist Mono', Helvetica, sans-serif;
     }
