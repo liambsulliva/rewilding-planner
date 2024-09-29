@@ -22,19 +22,19 @@ def score_map(raster):
     water_diff = abs((1/6)-pixelcount['water']/total)
     shaded_diff = abs((1/6)-pixelcount['shaded']/total)
     open_diff = abs((2/3)-pixelcount['open']/total)
-    print("water diff " + str(water_diff))
-    print("shaded diff " + str(shaded_diff))
-    print("open " + str(open_diff))
+    # print("water diff " + str(water_diff))
+    # print("shaded diff " + str(shaded_diff))
+    # print("open " + str(open_diff))
 
     biodiversity_score = 1 - (sum([water_diff, shaded_diff, open_diff]) / 3)
     bush_count = (biodiversity_score-.2)*pixelcount['open']
     carbon_count = (pixelcount['shaded']*9.4)/1000
     bush_carbon_count = (bush_count*8.3)/1000
 
-    print(carbon_count)
-    print(biodiversity_score)
-    print(bush_count)
-    print(bush_carbon_count)
+    pixelcount['bush'] += int(bush_count)
+    print("Carbon Captured "+str(carbon_count+bush_count))
+    print("Biodiversity Score "+str(biodiversity_score))
+    #print(bush_carbon_count)
 
 def remove_tree(treenum, stumpraster, leafraster):
     for i, row in enumerate(stumpraster):
@@ -97,7 +97,7 @@ def make_leafmap(tree_stumps, leaves):
     # return nearest_stumps, stump_centroids_pixels, leaf_locations_pixels
 
 
-file = "ugh.bmp"
+file = "1sttake.bmp"
 img = Image.open(file)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -123,6 +123,8 @@ np.savetxt('tensor.txt', leafraster, delimiter=',')
 stumpraster, leafraster =make_leafmap(stumpraster, leafraster)
 
 remove_tree(3, stumpraster, leafraster)
+score_map(pixels)
+
 pixel_np = pixels.cpu().numpy().astype(np.uint8)
 im = Image.fromarray(pixel_np)
 im.save("2.bmp")
