@@ -45,9 +45,6 @@
 
   let visibleCells: { row: number, col: number, svg: string }[] = [];
 
-  // Zoom detection logic
-  // Reference to the component
-
   let componentElement: HTMLElement | null = null;
 
   onMount(() => {
@@ -67,7 +64,6 @@
     const inBounds = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
 
     if (inBounds) {
-      // Perform zooming logic only if the mouse is within the component's bounds
       zoomLevel = Math.max(0.5, Math.min(2, zoomLevel - event.deltaY * 0.001));
       updateVisibleCells();
     }
@@ -101,10 +97,10 @@ function cutDownTree(row: number, col: number) {
       if (Math.random() < 0.33) {
         const animals = ['animal1', 'animal2', 'animal3'];
         const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
-        gridData[row][col] = randomAnimal; // Place the animal
+        gridData[row][col] = randomAnimal; // Place random animal
       }
     }
-    updateVisibleCells(); // Refresh the visible grid
+    updateVisibleCells();
   }
 }
 
@@ -126,19 +122,18 @@ function cutDownTree(row: number, col: number) {
   }
 
   function handleMouseClick(row: number, col: number) {
-  // Prevents panning behavior when clicking
+  // Prevents panning behavior when clicking on a treecell
   isPanning = false;
   cutDownTree(row, col);
 }
 
-  // Mouse down event for panning
+  /*! PAN BEHAVIOR */
   function handleMouseDown(event: MouseEvent) {
     isPanning = true;
     startX = event.clientX - translateX;
     startY = event.clientY - translateY;
   }
 
-  // Mouse move event for panning
   function handleMouseMove(event: MouseEvent) {
     if (!isPanning) return;
     translateX = event.clientX - startX;
@@ -146,7 +141,6 @@ function cutDownTree(row: number, col: number) {
     updateVisibleCells();
   }
 
-  // Mouse up event to stop panning
   function handleMouseUp() {
     isPanning = false;
   }
@@ -187,7 +181,7 @@ function cutDownTree(row: number, col: number) {
     height: 32rem;
     max-width: calc(100vw - 2rem);
     max-height: calc(100vh - 2rem);
-    overflow: hidden; /* Ensure the grid does not overflow outside its bounds */
+    overflow: hidden;
     position: relative;
     cursor: grab;
   }
