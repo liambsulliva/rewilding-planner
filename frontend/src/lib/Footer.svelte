@@ -11,6 +11,7 @@
       padding-bottom: 4rem;
     }
     .footer {
+      background-color: #242424;
       position: fixed;
       bottom: 0;
       left: 0;
