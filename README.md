@@ -1,4 +1,4 @@
-# Rewilding Project
+# Rewilding Planner
 
 This project is a web application that generates a random ecosystem on a grid, featuring trees, water, and animals. It's built using Svelte for the frontend and Flask for the backend. Although we couldn't implement all the features in time, it was a very fulfilling project! This is submitted for the Eaton Sustainability for AI track.
 
