@@ -8,7 +8,7 @@
 </script>
 
 <main>
-  <h1 class="header font-bold">Rewilding Simulation</h1>
+  <h1 class="header font-bold">Rewilding Planner</h1>
   <div class="relative flex flex-col items-center p-6">
     <div class="stats-container">
       <Stats />
