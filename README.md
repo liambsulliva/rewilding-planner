@@ -2,7 +2,9 @@
 
 This project is a web application that generates a random ecosystem on a grid, featuring trees, water, and animals. It's built using Svelte for the frontend and Flask for the backend. Although we couldn't implement all the features in time, it was a very fulfilling project! This is submitted for the Eaton Sustainability for AI track.
 
-Video Demo available [here](https://www.youtube.com/watch?v=IkalxMRn_rk)
+[Live View](https://rewilding-project-wine.vercel.app) (Frontend Only)
+
+[Video Demo](https://www.youtube.com/watch?v=IkalxMRn_rk)
 
 ## Features
 
